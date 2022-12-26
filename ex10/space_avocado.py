@@ -130,17 +130,15 @@ def reverse_scaler_y(x, mean, std):
 
 if __name__ == '__main__':
     models = pd.read_csv("models.csv")
-    data = pd.read_csv("space_avocado.csv")
+    data = pd.read_csv("avocado_test.csv")
     np.random.seed(1)
     y_pred = []
     mse = []
-    X = np.array([data["weight"], data["prod_distance"],data["time_delivery"]])
-    Y = np.array([data["target"]])
-    x_train,x_test, y_train, y_test = data_spliter(X.T,Y,0.80)
-    x_test = scaler_params(x_test.T, models.iloc[:,-2][np.isfinite(models.iloc[:,-2])], models.iloc[:,-1][np.isfinite(models.iloc[:,-1])])
+    x_test = np.array([data["weight"], data["prod_distance"],data["time_delivery"]])
+    y_test = np.array([data["target"]])
+    x_test = scaler_params(x_test, models.iloc[:,-2][np.isfinite(models.iloc[:,-2])], models.iloc[:,-1][np.isfinite(models.iloc[:,-1])])
     y_test = scaler_y_params(y_test, models.iloc[:,-2][np.isfinite(models.iloc[:,-2])].iloc[-1], models.iloc[:,-1][np.isfinite(models.iloc[:,-1])].iloc[-1])
     p = x_test
-    r = x_train
     lgr= MyLinearRegression(models.iloc[:,-6][np.isfinite(models.iloc[:,-6])].T)
     y_hat1 = lgr.predict_(x_test)
     y_pred.append(y_hat1)

@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import random
 
 class MyLinearRegression():
-    def __init__(self, theta, alpha=0.01, max_iter=100000):
+    def __init__(self, theta, alpha=0.1, max_iter=100000):
         self.alpha = alpha
         self.max_iter = max_iter
         self.theta = theta
@@ -126,9 +126,9 @@ def min_max_y(x):
     return r
 
 if __name__ == '__main__':
-    data = pd.read_csv("space_avocado.csv")
+    '''data = pd.read_csv("space_avocado.csv")
     np.random.seed(1)
-    '''X = np.array([data["weight"], data["prod_distance"],data["time_delivery"]])
+    X = np.array([data["weight"], data["prod_distance"],data["time_delivery"]])
     Y = np.array([data["target"]])
     x_train,x_test, y_train, y_test = data_spliter(X.T,Y,0.80)
     df = pd.concat([pd.DataFrame(x_train.T[0]), pd.DataFrame(x_train.T[1]), pd.DataFrame(x_train.T[2]), pd.DataFrame(y_train)], axis=1)
@@ -177,7 +177,7 @@ if __name__ == '__main__':
     mylr4 = MyLinearRegression([[1], [-1], [1], [-1], [1],[-1],[-1],[-1],[-1], [1], [-1], [1],[1]])
     mylr4.fit_(p, y_train)
     df = pd.concat([pd.DataFrame(mylr1.theta), pd.DataFrame(mylr2.theta), pd.DataFrame(mylr3.theta), pd.DataFrame(mylr4.theta), pd.DataFrame(means), pd.DataFrame(stds)], axis=1)
-    df.to_csv("models.csv", index=False)    
+    df.to_csv("models.csv", index=False)
 
 
 
